@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The Blackprint — Celebrating DPSCD alumni whose leadership, influence, and investment continue to shape opportunity for the next generation.">
+  <title>The Blackprint | DPSCD Foundation</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── TOKENS ─── */
+    :root {
+      --gold: #FFC600;
+      --gold-dim: rgba(255,198,0,0.15);
+      --black: #080808;
+      --surface: #101010;
+      --surface-2: #161616;
+      --white: #FFFFFF;
+      --off-white: #F0EDE6;
+      --text-body: rgba(255,255,255,0.72);
+      --text-muted: rgba(255,255,255,0.38);
+      --focus-ring: 3px solid var(--gold);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 400;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ─── SKIP LINK ─── */
+    .skip-link {
+      position: absolute;
+      top: -100%; left: 16px;
+      background: var(--gold);
+      color: var(--black);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      padding: 10px 20px;
+      z-index: 9999;
+      text-decoration: none;
+      border-radius: 0 0 4px 4px;
+      transition: top 0.2s;
+    }
+    .skip-link:focus { top: 0; outline: var(--focus-ring); outline-offset: 2px; }
+    :focus-visible { outline: var(--focus-ring); outline-offset: 3px; border-radius: 2px; }
+
+    /* ─── BLUEPRINT BG ─── */
+    .blueprint-bg {
+      position: fixed; inset: 0;
+      z-index: 0; pointer-events: none; opacity: 0.15;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(255,255,255,0.4) 79px, rgba(255,255,255,0.4) 80px),
+        repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(255,255,255,0.4) 79px, rgba(255,255,255,0.4) 80px);
+      background-size: 80px 80px;
+      background-attachment: fixed;
+    }
+    .blueprint-bg::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 319px, rgba(255,255,255,0.55) 319px, rgba(255,255,255,0.55) 320px),
+        repeating-linear-gradient(90deg, transparent, transparent 319px, rgba(255,255,255,0.55) 319px, rgba(255,255,255,0.55) 320px);
+      background-size: 320px 320px;
+      background-attachment: fixed;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 40px;
+      background: rgba(8,8,8,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--gold-dim);
+    }
+    .nav-logo { height: 40px; width: auto; display: block; }
+    nav ul { list-style: none; display: flex; align-items: center; gap: 40px; }
+    nav a {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600; font-size: 0.68rem; letter-spacing: 3px;
+      text-transform: uppercase; color: rgba(255,255,255,0.55);
+      text-decoration: none; transition: color 0.2s;
+      position: relative; padding-bottom: 4px;
+    }
+    nav a::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 1px; background: var(--gold);
+      transform: scaleX(0); transition: transform 0.2s; transform-origin: left;
+    }
+    nav a:hover, nav a:focus-visible { color: var(--gold); outline: none; }
+    nav a:hover::after, nav a:focus-visible::after { transform: scaleX(1); }
+    nav a[aria-current] { color: var(--gold); }
+    nav a[aria-current]::after { transform: scaleX(1); }
+
+    .nav-toggle {
+      display: none; background: none;
+      border: 1px solid var(--gold-dim); color: var(--white);
+      padding: 8px 14px; cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .nav-toggle:hover, .nav-toggle:focus-visible {
+      border-color: var(--gold); color: var(--gold); outline: var(--focus-ring);
+    }
+
+    /* ─── SECTION COMMONS ─── */
+    section { position: relative; z-index: 1; }
+
+    .section-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 7px; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: 'Antonio', sans-serif;
+      font-weight: 700;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      color: var(--white); line-height: 0.95;
+    }
+    .gold-rule {
+      width: 48px; height: 2px;
+      background: var(--gold); margin: 22px auto;
+    }
+    .section-divider {
+      width: 100%; max-width: 600px;
+      margin: 0 auto; display: flex;
+      align-items: center; gap: 16px; padding: 0 24px;
+    }
+    .section-divider::before, .section-divider::after {
+      content: ''; flex: 1; height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,198,0,0.3), transparent);
+    }
+    .divider-diamond {
+      width: 6px; height: 6px;
+      background: var(--gold); transform: rotate(45deg); flex-shrink: 0;
+    }
+
+    /* ─── HERO ─── */
+    #hero {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 140px 24px 80px;
+    }
+    .hero-logo {
+      width: 96px; height: auto; margin-bottom: 32px;
+      animation: fadeUp 0.9s ease both;
+      background: transparent;
+      display: block;
+    }
+    .hero-eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.62rem; font-weight: 600;
+      letter-spacing: 5px; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 24px;
+      animation: fadeUp 0.9s 0.1s ease both;
+    }
+    h1.blkprint-title {
+      font-family: 'Antonio', sans-serif; font-weight: 700;
+      font-size: clamp(5.5rem, 17vw, 13rem);
+      line-height: 0.88; letter-spacing: -3px; color: var(--white);
+      animation: fadeUp 0.9s 0.2s ease both;
+    }
+    h1.blkprint-title .blk { -webkit-text-stroke: 1px rgba(255,198,0,0.4); }
+    .hero-tagline {
+      font-family: 'Antonio', sans-serif;
+      font-size: clamp(1rem, 2.5vw, 1.4rem); font-weight: 400;
+      letter-spacing: 6px; text-transform: uppercase;
+      color: var(--gold); margin-top: 20px;
+      animation: fadeUp 0.9s 0.3s ease both;
+    }
+    .hero-intro {
+      max-width: 680px; margin: 48px auto 0;
+      animation: fadeUp 0.9s 0.4s ease both;
+      border-top: 1px solid var(--gold-dim); padding-top: 40px;
+    }
+    .hero-intro-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 7px; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 20px;
+    }
+    .hero-intro p {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(0.88rem, 1.5vw, 1rem);
+      font-weight: 300; line-height: 1.9; color: var(--text-body);
+    }
+    .hero-intro p + p { margin-top: 16px; }
+    .hero-intro .closing-line {
+      font-family: 'Antonio', sans-serif;
+      font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 700;
+      letter-spacing: 2px; color: var(--white); margin-top: 28px;
+    }
+    .hero-scroll-hint {
+      margin-top: 64px;
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      animation: fadeUp 0.9s 0.65s ease both;
+    }
+    .hero-scroll-hint span {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.58rem; font-weight: 600;
+      letter-spacing: 5px; text-transform: uppercase;
+      color: rgba(255,255,255,0.22);
+    }
+    .scroll-line {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.35; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.25); transform-origin: top; }
+    }
+
+    /* ─── FEATURED ─── */
+    #featured {
+      padding: 120px 24px 100px;
+      text-align: center;
+    }
+    .featured-card {
+      display: flex; flex-direction: column; align-items: center;
+      max-width: 640px; margin: 56px auto 0;
+    }
+
+    /* ─── POLAROID BASE ─── */
+    .polaroid {
+      background: var(--off-white);
+      padding: 14px 14px 48px;
+      box-shadow: 0 28px 72px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.04);
+      position: relative;
+      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s;
+    }
+    .polaroid::before, .polaroid::after {
+      content: '';
+      position: absolute; width: 20px; height: 20px;
+    }
+    .polaroid::before {
+      top: 6px; left: 6px;
+      border-top: 2px solid var(--gold); border-left: 2px solid var(--gold); opacity: 0.5;
+    }
+    .polaroid::after {
+      top: 6px; right: 6px;
+      border-top: 2px solid var(--gold); border-right: 2px solid var(--gold); opacity: 0.5;
+    }
+    .polaroid-img-wrap {
+      background: #141428; overflow: hidden;
+      position: relative; display: flex;
+      align-items: center; justify-content: center;
+    }
+    /* Silhouette */
+    .polaroid-img-wrap::before {
+      content: '';
+      position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      background: rgba(255,255,255,0.055); border-radius: 50px 50px 0 0;
+    }
+    .polaroid-img-wrap::after {
+      content: '';
+      position: absolute; left: 50%; transform: translateX(-50%);
+      background: rgba(255,255,255,0.075); border-radius: 50%;
+    }
+    .polaroid-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top;
+      display: block; position: relative; z-index: 1;
+    }
+    .polaroid-placeholder-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.55rem; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: rgba(255,255,255,0.13);
+      position: absolute; bottom: 10px; z-index: 2;
+    }
+    .polaroid-bottom { padding: 12px 4px 0; text-align: center; }
+    .polaroid-descriptor {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.56rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: #888; margin-bottom: 6px;
+    }
+    .polaroid-name {
+      font-family: 'Antonio', sans-serif;
+      font-weight: 700; font-size: 1.15rem;
+      letter-spacing: 2px; text-transform: uppercase; color: #111;
+    }
+    .polaroid-school {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem; font-weight: 600;
+      color: #666; letter-spacing: 1px; text-transform: uppercase; margin-top: 3px;
+    }
+    .polaroid-role-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.58rem; color: #888;
+      letter-spacing: 0.5px; margin-top: 4px; line-height: 1.5;
+    }
+
+    /* ─── FEATURED POLAROID SIZE ─── */
+    .featured-card .polaroid { width: 300px; }
+    .featured-card .polaroid-img-wrap {
+      width: 272px; height: 272px;
+    }
+    .featured-card .polaroid-img-wrap::before { width: 110px; height: 170px; }
+    .featured-card .polaroid-img-wrap::after { width: 64px; height: 64px; bottom: 112px; }
+    .featured-card .polaroid:hover { transform: translateY(-8px) rotate(1deg); }
+
+    /* Featured bio */
+    .featured-bio {
+      margin-top: 36px; text-align: left; max-width: 560px;
+    }
+    .featured-bio p {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.92rem; font-weight: 300;
+      line-height: 1.9; color: var(--text-body);
+    }
+    .featured-bio p + p { margin-top: 14px; }
+    .blackprint-signature {
+      font-family: 'Antonio', sans-serif;
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--gold); letter-spacing: 2px;
+      margin-top: 24px; text-transform: uppercase;
+    }
+
+    /* ─── ALUMNI GRID SECTION ─── */
+    #alumni {
+      padding: 100px 24px 60px;
+      text-align: center;
+    }
+    .grid-tagline {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* Grid of polaroid cards */
+    .alumni-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 24px;
+      max-width: 1000px;
+      margin: 56px auto 0;
+    }
+
+    /* Each grid card is a link */
+    .alumni-grid-link {
+      text-decoration: none;
+      display: block;
+      outline-offset: 6px;
+    }
+    .alumni-grid-link:focus-visible { outline: var(--focus-ring); border-radius: 2px; }
+
+    /* Grid-sized polaroid overrides */
+    .alumni-grid .polaroid {
+      padding: 10px 10px 40px;
+      cursor: pointer;
+    }
+    .alumni-grid .polaroid-img-wrap {
+      width: 100%; height: 150px;
+    }
+    .alumni-grid .polaroid-img-wrap::before {
+      width: 68px; height: 108px;
+    }
+    .alumni-grid .polaroid-img-wrap::after {
+      width: 42px; height: 42px; bottom: 68px;
+    }
+    .alumni-grid .polaroid-name { font-size: 0.85rem; }
+    .alumni-grid .polaroid-school { font-size: 0.6rem; }
+    .alumni-grid .polaroid-role-text { font-size: 0.55rem; }
+
+    /* Staggered tilts */
+    .alumni-grid .polaroid:nth-child(odd)  { transform: rotate(-1.2deg); }
+    .alumni-grid .polaroid:nth-child(even) { transform: rotate(1.2deg); }
+    .alumni-grid .polaroid:nth-child(3n)   { transform: rotate(-0.5deg); }
+
+    .alumni-grid-link:hover .polaroid,
+    .alumni-grid-link:focus-visible .polaroid {
+      transform: rotate(0deg) translateY(-10px) !important;
+      box-shadow: 0 36px 80px rgba(0,0,0,0.85), 0 0 0 2px var(--gold);
+    }
+
+    /* "View profile" hint on hover */
+    .polaroid-hint {
+      position: absolute;
+      bottom: 12px; left: 0; right: 0;
+      text-align: center;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.52rem; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .alumni-grid-link:hover .polaroid-hint,
+    .alumni-grid-link:focus-visible .polaroid-hint { opacity: 1; }
+
+    /* ─── PROFILES SECTION ─── */
+    #profiles {
+      padding: 80px 24px 120px;
+    }
+
+    .profiles-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* Individual profile */
+    .profile {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 48px;
+      align-items: start;
+      padding: 72px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      scroll-margin-top: 100px; /* offset for fixed nav */
+    }
+    .profile:last-child { border-bottom: none; }
+
+    /* Profile polaroid — smaller, fixed width */
+    .profile .polaroid {
+      width: 200px; flex-shrink: 0;
+    }
+    .profile .polaroid-img-wrap {
+      width: 172px; height: 172px;
+    }
+    .profile .polaroid-img-wrap::before { width: 80px; height: 124px; }
+    .profile .polaroid-img-wrap::after { width: 50px; height: 50px; bottom: 80px; }
+    .profile .polaroid { padding: 10px 10px 40px; }
+    .profile .polaroid:hover { transform: rotate(0deg) translateY(-4px); }
+
+    .profile-content {}
+
+    .profile-school-tag {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.58rem; font-weight: 700;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 10px;
+    }
+
+    .profile-name {
+      font-family: 'Antonio', sans-serif;
+      font-weight: 700;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--white); line-height: 0.95;
+      margin-bottom: 10px;
+    }
+
+    .profile-role {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.72rem; font-weight: 600;
+      color: rgba(255,255,255,0.42);
+      letter-spacing: 0.5px; line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .profile-bio {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem; font-weight: 300;
+      line-height: 1.95; color: var(--text-body);
+    }
+    .profile-bio p + p { margin-top: 14px; }
+
+    .profile-signature {
+      font-family: 'Antonio', sans-serif;
+      font-size: 1rem; font-weight: 700;
+      color: var(--gold); letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,198,0,0.15);
+    }
+
+    /* ─── SUPPORT ─── */
+    #support {
+      min-height: 70vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 120px 24px 100px;
+      text-align: center; position: relative;
+    }
+    #support::before {
+      content: 'BLKPRINT';
+      position: absolute;
+      font-family: 'Antonio', sans-serif; font-weight: 700;
+      font-size: clamp(6rem, 20vw, 16rem);
+      color: rgba(255,255,255,0.018);
+      letter-spacing: -4px; pointer-events: none; user-select: none;
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      white-space: nowrap;
+    }
+    .support-quote {
+      font-family: 'Montserrat', sans-serif; font-weight: 300;
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      line-height: 1.9; max-width: 520px;
+      color: var(--text-body); margin: 32px 0 48px;
+      position: relative;
+    }
+    .support-quote strong { color: var(--white); font-weight: 700; }
+    .support-quote::before {
+      content: '"';
+      font-family: 'Antonio', sans-serif; font-size: 8rem;
+      color: rgba(255,198,0,0.06);
+      position: absolute; top: -40px; left: -20px;
+      line-height: 1; pointer-events: none;
+    }
+    .cta-button {
+      display: inline-block;
+      font-family: 'Antonio', sans-serif; font-weight: 700;
+      font-size: 1.5rem; letter-spacing: 4px;
+      color: var(--black); background: var(--gold);
+      padding: 18px 56px; text-decoration: none;
+      transition: background 0.2s, letter-spacing 0.2s, transform 0.2s;
+      clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+      position: relative; z-index: 1;
+    }
+    .cta-button:hover { background: var(--white); letter-spacing: 6px; transform: translateY(-2px); }
+    .cta-button:focus-visible { outline: 3px solid var(--white); outline-offset: 4px; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--gold-dim);
+      padding: 28px 24px; text-align: center;
+    }
+    footer p {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.62rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(255,255,255,0.18);
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(36px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+
+    /* ─── RESPONSIVE ─── */
+
+    /* Tablet: 768px and below */
+    @media (max-width: 768px) {
+
+      /* Nav */
+      nav { flex-wrap: wrap; padding: 14px 20px; gap: 12px; }
+      .nav-toggle { display: block; }
+      nav ul {
+        display: none; flex-direction: column; width: 100%;
+        gap: 0; border-top: 1px solid var(--gold-dim);
+        margin-top: 12px; padding-top: 12px;
+      }
+      nav ul.open { display: flex; }
+      nav ul li { width: 100%; text-align: center; }
+      nav ul a { display: block; padding: 12px 0; font-size: 0.75rem; }
+
+      /* Hero */
+      #hero { padding: 120px 20px 60px; }
+      .hero-intro { padding-top: 32px; margin-top: 36px; }
+      .hero-intro p { font-size: 0.88rem; }
+      .hero-scroll-hint { margin-top: 48px; }
+
+      /* Featured */
+      #featured { padding: 80px 20px 72px; }
+      .featured-card .polaroid { width: 260px; }
+      .featured-card .polaroid-img-wrap { width: 232px; height: 232px; }
+      .featured-bio { margin-top: 28px; max-width: 100%; }
+      .featured-bio p { font-size: 0.87rem; }
+
+      /* Alumni grid - 3 columns on tablet */
+      #alumni { padding: 72px 20px 48px; }
+      .alumni-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 40px;
+      }
+
+      /* Profiles - stack polaroid above content */
+      #profiles { padding: 60px 20px 80px; }
+      .profile {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 52px 0;
+      }
+      .profile .polaroid { width: 160px; margin: 0 auto; }
+      .profile .polaroid-img-wrap { width: 136px !important; height: 136px !important; }
+      .profile .polaroid-img-wrap::before { width: 64px !important; height: 100px !important; }
+      .profile .polaroid-img-wrap::after { width: 42px !important; height: 42px !important; bottom: 64px !important; }
+      .profile-name { font-size: clamp(1.8rem, 6vw, 2.5rem); }
+      .profile-bio { font-size: 0.87rem; }
+
+      /* Support */
+      #support { padding: 80px 20px 72px; min-height: auto; }
+      .cta-button { font-size: 1.2rem; padding: 16px 40px; letter-spacing: 3px; }
+    }
+
+    /* Mobile: 600px and below */
+    @media (max-width: 600px) {
+
+      /* Hero */
+      #hero { padding: 110px 16px 56px; }
+      .hero-eyebrow { font-size: 0.55rem; letter-spacing: 3px; }
+      .hero-intro { padding-top: 28px; margin-top: 28px; }
+
+      /* Featured */
+      #featured { padding: 64px 16px 56px; }
+      .featured-card .polaroid { width: 240px; }
+      .featured-card .polaroid-img-wrap { width: 212px; height: 212px; }
+
+      /* Alumni grid - 2 columns on mobile */
+      .alumni-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+      .alumni-grid .polaroid:nth-child(odd)  { transform: rotate(-0.8deg); }
+      .alumni-grid .polaroid:nth-child(even) { transform: rotate(0.8deg); }
+      .alumni-grid .polaroid:nth-child(3n)   { transform: rotate(-0.3deg); }
+
+      /* Profiles */
+      #profiles { padding: 48px 16px 64px; }
+      .profile { padding: 44px 0; gap: 20px; }
+      .profile-name { font-size: clamp(1.6rem, 7vw, 2.2rem); }
+      .profile-role { font-size: 0.68rem; }
+
+      /* Support */
+      #support { padding: 72px 16px 64px; }
+      .support-quote { font-size: 0.95rem; }
+      .support-quote::before { font-size: 6rem; top: -30px; left: -12px; }
+      .cta-button {
+        font-size: 1.1rem; padding: 15px 32px;
+        width: 100%; text-align: center;
+        clip-path: none;
+      }
+    }
+
+    /* Small mobile: 380px and below */
+    @media (max-width: 380px) {
+      h1.blkprint-title { letter-spacing: -1px; }
+      .hero-tagline { letter-spacing: 3px; font-size: 0.9rem; }
+      .alumni-grid { gap: 10px; }
+      .alumni-grid .polaroid-img-wrap { height: 120px; }
+      .alumni-grid .polaroid-name { font-size: 0.75rem; }
+      .alumni-grid .polaroid-school { font-size: 0.55rem; }
+      .alumni-grid .polaroid-role-text { display: none; }
+      .section-title { font-size: clamp(2.2rem, 9vw, 3rem); }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div class="blueprint-bg" aria-hidden="true"></div>
+
+  <!-- ─── NAV ─── -->
+  <nav role="navigation" aria-label="Main navigation">
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Toggle navigation menu">Menu</button>
+    <ul id="nav-list" role="list">
+      <li><a href="#hero">BLKPRINT</a></li>
+      <li><a href="#featured">Featured</a></li>
+      <li><a href="#alumni">Class of 2026</a></li>
+      <li><a href="#support">Support</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- ─── HERO ─── -->
+    <section id="hero" aria-labelledby="hero-heading">
+      <img class="hero-logo" src="https://dpscdfoundation.org/wp-content/uploads/2026/02/DPSCDF-logo-White-400x385-1.png"
+        alt="Detroit Public Schools Community District Foundation" width="96" height="92">
+      <p class="hero-eyebrow">Detroit Public Schools Community District Foundation</p>
+      <h1 id="hero-heading" class="blkprint-title"><span class="blk">BLK</span>PRINT</h1>
+      <p class="hero-tagline">The Blueprint, Written in Black.</p>
+      <div class="hero-intro">
+        <p class="hero-intro-label">About</p>
+        <p>Black excellence has always been rooted in Detroit Public Schools Community District. The Blackprint is a celebration of DPSCD alumni whose leadership, influence, and investment continue to shape opportunity for the next generation.</p>
+        <p>These are individuals who have not only excelled in their respective fields, but who understand the power of reinvesting in the institutions and communities that shaped them. From boardrooms to courtrooms, classrooms to construction sites, their impact is not confined to titles. It is experienced every day by DPSCD students who benefit from stronger schools, expanded pathways, and a network of alumni committed to building forward.</p>
+        <p class="closing-line">This is the Blackprint. A legacy in motion.</p>
+      </div>
+      <div class="hero-scroll-hint" aria-hidden="true">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- ─── FEATURED ─── -->
+    <section id="featured" aria-labelledby="featured-heading">
+      <p class="section-label reveal">Spotlight</p>
+      <h2 id="featured-heading" class="section-title reveal reveal-delay-1">Featured Legacy Builder</h2>
+      <div class="gold-rule reveal reveal-delay-2" aria-hidden="true"></div>
+
+      <div class="featured-card">
+        <!-- Featured card links down to Iris Taylor's profile -->
+        <a class="alumni-grid-link" href="#profile-iris-taylor" aria-label="View Iris Taylor's full profile">
+          <div class="polaroid reveal reveal-delay-3">
+            <div class="polaroid-img-wrap" role="img" aria-label="Iris Taylor">
+              <img src="https://dpscdfoundation.org/wp-content/uploads/2026/02/Iris-Taylor.png" alt="Iris Taylor" loading="lazy">
+            </div>
+            <div class="polaroid-bottom">
+              <p class="polaroid-descriptor">Proud DPSCD Alum Investing in the Next Generation</p>
+              <p class="polaroid-name">Iris Taylor</p>
+              <p class="polaroid-school">Central High School</p>
+              <p class="polaroid-role-text">DPSCD Foundation Board Chair<br>DPSCD Board of Education Member</p>
+            </div>
+            <span class="polaroid-hint" aria-hidden="true">View Profile ↓</span>
+          </div>
+        </a>
+
+        <div class="featured-bio reveal reveal-delay-4">
+          <p>Dr. Iris Taylor represents leadership at the highest levels of both healthcare and education in Detroit. A nationally respected nurse executive, she has held senior leadership roles within major health systems, shaping patient care strategy, clinical operations, and workforce development across the region.</p>
+          <p>Today, she brings that same strategic discipline and commitment to service to DPSCD as both Board Chair of the DPSCD Foundation and a member of the Board of Education. In these roles, she helps steward philanthropic investment, guide governance decisions, and ensure that student outcomes remain at the center of every conversation.</p>
+          <p>For DPSCD students, her leadership reinforces that excellence cultivated in Detroit classrooms can lead to influence across entire industries.</p>
+          <p class="blackprint-signature">Her Blackprint is institutional strength. The steady hand shaping systems that serve generations.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DIVIDER -->
+    <div class="section-divider reveal" aria-hidden="true"><div class="divider-diamond"></div></div>
+
+    <!-- ─── ALUMNI GRID ─── -->
+    <section id="alumni" aria-labelledby="alumni-heading">
+      <p class="section-label reveal">BLKPRINT</p>
+      <h2 id="alumni-heading" class="section-title reveal reveal-delay-1">Legacy Builders</h2>
+      <div class="gold-rule reveal reveal-delay-2" aria-hidden="true"></div>
+      <p class="grid-tagline reveal reveal-delay-3">Excellence shaped here. Impact carried forward.</p>
+
+      <div class="alumni-grid" role="list">
+
+        <a class="alumni-grid-link reveal reveal-delay-1" href="#profile-latrice-mcclendon" role="listitem" aria-label="View Latrice McClendon's profile">
+          <div class="polaroid">
+            <div class="polaroid-img-wrap" role="img" aria-label="Latrice McClendon">
+              <img src="https://dpscdfoundation.org/wp-content/uploads/2026/02/LM.jpg" alt="Latrice McClendon" loading="lazy">
+            </div>
+            <div class="polaroid-bottom">
+              <p class="polaroid-name">Latrice McClendon</p>
+              <p class="polaroid-school">Cass Tech</p>
+              <p class="polaroid-role-text">Board Chair · Knight Foundation</p>
+            </div>
+            <span class="polaroid-hint" aria-hidden="true">View ↓</span>
+          </div>
+        </a>
+
+        <a class="alumni-grid-link reveal reveal-delay-2" href="#profile-denise-lewis" role="listitem" aria-label="View Denise Lewis's profile">
+          <div class="polaroid">
+            <div class="polaroid-img-wrap" role="img" aria-label="Denise Lewis">
+              <img src="https://dpscdfoundation.org/wp-content/uploads/2026/02/Denise-Lewis.png" alt="Denise Lewis" loading="lazy">
+            </div>
+            <div class="polaroid-bottom">
+              <p class="polaroid-name">Denise Lewis</p>
+              <p class="polaroid-school">Mumford High School</p>
+              <p class="polaroid-role-text">Attorney · Philanthropic Leader</p>
+            </div>
+            <span class="polaroid-hint" aria-hidden="true">View ↓</span>
+          </div>
+        </a>
+
+        <a class="alumni-grid-link reveal reveal-delay-3" href="#profile-aliyah-sabree" role="listitem" aria-label="View Judge Aliyah Sabree's profile">
+          <div class="polaroid">
+            <div class="polaroid-img-wrap" role="img" aria-label="Aliyah Sabree">
+              <img src="https://dpscdfoundation.org/wp-content/uploads/2026/02/Aliyah-Sabree.jpg" alt="Aliyah Sabree" loading="lazy">
+            </div>
+            <div class="polaroid-bottom">
+              <p class="polaroid-name">Aliyah Sabree</p>
+              <p class="polaroid-school">Renaissance High School</p>
+              <p class="polaroid-role-text">Judge, 3rd Circuit Court</p>
+            </div>
+            <span class="polaroid-hint" aria-hidden="true">View ↓</span>
+          </div>
+        </a>
+
+        <a class="alumni-grid-link reveal reveal-delay-4" href="#profile-austin-garrett" role="listitem" aria-label="View Judge Austin Garrett's profile">
+          <div class="polaroid">
+            <div class="polaroid-img-wrap" role="img" aria-label="Austin Garrett">
+              <img src="https://dpscdfoundation.org/wp-content/uploads/2026/02/Austin-Garrett.jpg" alt="Austin Garrett" loading="lazy">
+            </div>
+            <div class="polaroid-bottom">
+              <p class="polaroid-name">Austin Garrett</p>
+              <p class="polaroid-school">MLK High School</p>
+              <p class="polaroid-role-text">Judge, 36th District Court</p>
+            </div>
+            <span class="polaroid-hint" aria-hidden="true">View ↓</span>
+          </div>
+        </a>
+
+        <a class="alumni-grid-link reveal reveal-delay-5" href="#profile-deana-neely" role="listitem" aria-label="View Deana Neely's profile">
+          <div class="polaroid">
+            <div class="polaroid-img-wrap" role="img" aria-label="Deana Neely">
+              <img src="https://dpscdfoundation.org/wp-content/uploads/2026/02/Deana-Neely.jpg" alt="Deana Neely" loading="lazy">
+            </div>
+            <div class="polaroid-bottom">
+              <p class="polaroid-name">Deana Neely</p>
+              <p class="polaroid-school">Osborn High School</p>
+              <p class="polaroid-role-text">CEO, Detroit Voltage</p>
+            </div>
+            <span class="polaroid-hint" aria-hidden="true">View ↓</span>
+          </div>
+        </a>
+
+        <a class="alumni-grid-link reveal reveal-delay-1" href="#profile-big-sean" role="listitem" aria-label="View Big Sean's profile">
+          <div class="polaroid">
+            <div class="polaroid-img-wrap" role="img" aria-label="Big Sean">
+              <img src="https://dpscdfoundation.org/wp-content/uploads/2026/02/big-sean-1.png" alt="Big Sean" loading="lazy">
+            </div>
+            <div class="polaroid-bottom">
+              <p class="polaroid-name">Big Sean</p>
+              <p class="polaroid-school">Cass Tech</p>
+              <p class="polaroid-role-text">Recording Artist · Philanthropist</p>
+            </div>
+            <span class="polaroid-hint" aria-hidden="true">View ↓</span>
+          </div>
+        </a>
+
+        <a class="alumni-grid-link reveal reveal-delay-2" href="#profile-sean-williams" role="listitem" aria-label="View Sean Williams's profile">
+          <div class="polaroid">
+            <div class="polaroid-img-wrap" role="img" aria-label="Sean Williams">
+              <img src="https://dpscdfoundation.org/wp-content/uploads/2026/02/Sean-Williams.jpeg" alt="Sean Williams" loading="lazy">
+            </div>
+            <div class="polaroid-bottom">
+              <p class="polaroid-name">Sean Williams</p>
+              <p class="polaroid-school">Cass Tech</p>
+              <p class="polaroid-role-text">CEO, Detroit Vs. Everybody</p>
+            </div>
+            <span class="polaroid-hint" aria-hidden="true">View ↓</span>
+          </div>
+        </a>
+
+        <a class="alumni-grid-link reveal reveal-delay-3" href="#profile-jeremy-orr" role="listitem" aria-label="View Jeremy Orr's profile">
+          <div class="polaroid">
+            <div class="polaroid-img-wrap" role="img" aria-label="Jeremy Orr">
+              <img src="https://dpscdfoundation.org/wp-content/uploads/2026/02/Jeremy-Orr.png" alt="Jeremy Orr" loading="lazy">
+            </div>
+            <div class="polaroid-bottom">
+              <p class="polaroid-name">Jeremy Orr</p>
+              <p class="polaroid-school">Henry Ford High School</p>
+              <p class="polaroid-role-text">Environmental Attorney</p>
+            </div>
+            <span class="polaroid-hint" aria-hidden="true">View ↓</span>
+          </div>
+        </a>
+
+        <a class="alumni-grid-link reveal reveal-delay-4" href="#profile-curtis-blackwell" role="listitem" aria-label="View Curtis Blackwell's profile">
+          <div class="polaroid">
+            <div class="polaroid-img-wrap" role="img" aria-label="Curtis Blackwell">
+              <img src="https://dpscdfoundation.org/wp-content/uploads/2026/02/Curtis-Blackwell.jpg" alt="Curtis Blackwell" loading="lazy">
+            </div>
+            <div class="polaroid-bottom">
+              <p class="polaroid-name">Curtis Blackwell</p>
+              <p class="polaroid-school">MLK High School</p>
+              <p class="polaroid-role-text">Founder, Sound Mind Sound Body</p>
+            </div>
+            <span class="polaroid-hint" aria-hidden="true">View ↓</span>
+          </div>
+        </a>
+
+        <a class="alumni-grid-link reveal reveal-delay-5" href="#profile-tarence-wheeler" role="listitem" aria-label="View Tarence Wheeler's profile">
+          <div class="polaroid">
+            <div class="polaroid-img-wrap" role="img" aria-label="Tarence Wheeler">
+              <img src="https://dpscdfoundation.org/wp-content/uploads/2026/02/Tarence-Wheeler.jpg" alt="Tarence Wheeler" loading="lazy">
+            </div>
+            <div class="polaroid-bottom">
+              <p class="polaroid-name">Tarence Wheeler</p>
+              <p class="polaroid-school">Southwestern High School</p>
+              <p class="polaroid-role-text">Executive Director, Alumni Affairs</p>
+            </div>
+            <span class="polaroid-hint" aria-hidden="true">View ↓</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- DIVIDER -->
+    <div class="section-divider reveal" aria-hidden="true"><div class="divider-diamond"></div></div>
+
+    <!-- ─── PROFILES ─── -->
+    <section id="profiles" aria-label="Alumni profiles">
+      <div class="profiles-inner">
+
+        <!-- Iris Taylor -->
+        <article id="profile-iris-taylor" class="profile reveal" aria-label="Iris Taylor profile">
+          <div class="polaroid" aria-hidden="true">
+            <div class="polaroid-img-wrap" style="width:172px;height:172px;">
+              <img src="https://dpscdfoundation.org/wp-content/uploads/2026/02/Iris-Taylor.png" alt="Iris Taylor" loading="lazy">
+            </div>
+            <div class="polaroid-bottom">
+              <p class="polaroid-name">Iris Taylor</p>
+              <p class="polaroid-school">Central High School</p>
+            </div>
+          </div>
+          <div class="profile-content">
+            <p class="profile-school-tag">Central High School Alum</p>
+            <h2 class="profile-name">Iris Taylor</h2>
+            <p class="profile-role">DPSCD Foundation Board Chair | DPSCD Board of Education Member</p>
+            <div class="profile-bio">
+              <p>Dr. Iris Taylor represents leadership at the highest levels of both healthcare and education in Detroit. A nationally respected nurse executive, she has held senior leadership roles within major health systems, shaping patient care strategy, clinical operations, and workforce development across the region.</p>
+              <p>Today, she brings that same strategic discipline and commitment to service to DPSCD as both Board Chair of the DPSCD Foundation and a member of the Board of Education. In these roles, she helps steward philanthropic investment, guide governance decisions, and ensure that student outcomes remain at the center of every conversation.</p>
+              <p>For DPSCD students, her leadership reinforces that excellence cultivated in Detroit classrooms can lead to influence across entire industries. Her presence ensures the district is guided by experience, integrity, and vision.</p>
+            </div>
+            <p class="profile-signature">Her Blackprint is institutional strength. The steady hand shaping systems that serve generations.</p>
+          </div>
+        </article>
+
+        <!-- Latrice McClendon -->
+        <article id="profile-latrice-mcclendon" class="profile reveal" aria-label="Latrice McClendon profile">
+          <div class="polaroid" aria-hidden="true">
+            <div class="polaroid-img-wrap" style="width:172px;height:172px;">
+              <img src="https://dpscdfoundation.org/wp-content/uploads/2026/02/LM.jpg" alt="Latrice McClendon" loading="lazy">
+            </div>
+            <div class="polaroid-bottom">
+              <p class="polaroid-name">Latrice McClendon</p>
+              <p class="polaroid-school">Cass Tech</p>
+            </div>
+          </div>
+          <div class="profile-content">
+            <p class="profile-school-tag">Cass Technical High School Alum</p>
+            <h2 class="profile-name">Latrice McClendon</h2>
+            <p class="profile-role">DPSCD Board of Education Chair | Detroit Director, Knight Foundation</p>
+            <div class="profile-bio">
+              <p>Latrice McClendon is a force within Detroit's civic and philanthropic landscape. As Director of the Knight Foundation in Detroit, she oversees strategic investments that support community vitality, arts, and economic opportunity. As Chair of the DPSCD Board of Education, she plays a direct role in shaping the district's future.</p>
+              <p>Through both her professional leadership and board service, Latrice ensures that innovation, accountability, and opportunity remain central to DPSCD's progress. Her influence bridges philanthropy and policy, aligning resources with student needs.</p>
+            </div>
+            <p class="profile-signature">Her Blackprint is rooted in governance, strategic investment, and unwavering commitment to Detroit's youth.</p>
+          </div>
+        </article>
+
+        <!-- Denise Lewis -->
+        <article id="profile-denise-lewis" class="profile reveal" aria-label="Denise Lewis profile">
+          <div class="polaroid" aria-hidden="true">
+            <div class="polaroid-img-wrap" style="width:172px;height:172px;">
+              <img src="https://dpscdfoundation.org/wp-content/uploads/2026/02/Denise-Lewis.png" alt="Denise Lewis" loading="lazy">
+            </div>
+            <div class="polaroid-bottom">
+              <p class="polaroid-name">Denise Lewis</p>
+              <p class="polaroid-school">Mumford</p>
+            </div>
+          </div>
+          <div class="profile-content">
+            <p class="profile-school-tag">Mumford High School Alum</p>
+            <h2 class="profile-name">Denise Lewis</h2>
+            <p class="profile-role">Attorney | Philanthropic Leader</p>
+            <div class="profile-bio">
+              <p>Denise Lewis is a distinguished attorney whose career has spanned complex litigation, corporate counsel, and leadership within Detroit's legal community. A graduate of Mumford High School and Barnard College, she built her career on intellectual rigor, discipline, and a deep commitment to excellence.</p>
+              <p>Today, she continues to invest in Detroit through thoughtful philanthropic leadership that strengthens literacy and expands opportunity for DPSCD students. Her giving reflects a belief that educational environments should be inspiring, culturally affirming, and equipped to prepare students for any path they choose.</p>
+              <p>When alumni return to strengthen the institutions that shaped them, they help ensure that opportunity is not accidental, but intentional.</p>
+            </div>
+            <p class="profile-signature">Her Blackprint is about access to knowledge and the power of reinvestment.</p>
+          </div>
+        </article>
+
+        <!-- Aliyah Sabree -->
+        <article id="profile-aliyah-sabree" class="profile reveal" aria-label="Judge Aliyah Sabree profile">
+          <div class="polaroid" aria-hidden="true">
+            <div class="polaroid-img-wrap" style="width:172px;height:172px;">
+              <img src="https://dpscdfoundation.org/wp-content/uploads/2026/02/Aliyah-Sabree.jpg" alt="Aliyah Sabree" loading="lazy">
+            </div>
+            <div class="polaroid-bottom">
+              <p class="polaroid-name">Aliyah Sabree</p>
+              <p class="polaroid-school">Renaissance</p>
+            </div>
+          </div>
+          <div class="profile-content">
+            <p class="profile-school-tag">Renaissance High School Alum</p>
+            <h2 class="profile-name">Aliyah Sabree</h2>
+            <p class="profile-role">Honorable Judge, 3rd Circuit Court</p>
+            <div class="profile-bio">
+              <p>The Honorable Aliyah Sabree began her judicial career at Detroit's 36th District Court, where she became one of the youngest women to serve on the bench. She now serves on the 3rd Circuit Court, continuing her trajectory of leadership within Michigan's legal system.</p>
+              <p>Her rise reflects both excellence and advancement within institutions that shape public life. For DPSCD students, her journey affirms that careers in law, public service, and civic leadership are attainable. Representation on the bench signals possibility.</p>
+            </div>
+            <p class="profile-signature">Her Blackprint is one of progression, discipline, and breaking barriers with purpose.</p>
+          </div>
+        </article>
+
+        <!-- Austin Garrett -->
+        <article id="profile-austin-garrett" class="profile reveal" aria-label="Judge Austin Garrett profile">
+          <div class="polaroid" aria-hidden="true">
+            <div class="polaroid-img-wrap" style="width:172px;height:172px;">
+              <img src="https://dpscdfoundation.org/wp-content/uploads/2026/02/Austin-Garrett.jpg" alt="Austin Garrett" loading="lazy">
+            </div>
+            <div class="polaroid-bottom">
+              <p class="polaroid-name">Austin Garrett</p>
+              <p class="polaroid-school">MLK High School</p>
+            </div>
+          </div>
+          <div class="profile-content">
+            <p class="profile-school-tag">Martin Luther King Jr. High School Alum</p>
+            <h2 class="profile-name">Austin Garrett</h2>
+            <p class="profile-role">Honorable Judge, 36th District Court | Chief Judge Pro Tem</p>
+            <div class="profile-bio">
+              <p>The Honorable Austin Garrett made history as the youngest judge to serve on Detroit's 36th District Court. He currently serves as Chief Judge Pro Tem, a role that reflects both leadership and institutional trust within one of Michigan's busiest courts.</p>
+              <p>His work places him at the center of decisions that directly affect Detroit residents. For DPSCD students, his presence on the bench reinforces that excellence cultivated in Detroit classrooms can lead to positions of real authority and community impact.</p>
+            </div>
+            <p class="profile-signature">His Blackprint is bold leadership rooted in preparation and civic responsibility.</p>
+          </div>
+        </article>
+
+        <!-- Deana Neely -->
+        <article id="profile-deana-neely" class="profile reveal" aria-label="Deana Neely profile">
+          <div class="polaroid" aria-hidden="true">
+            <div class="polaroid-img-wrap" style="width:172px;height:172px;">
+              <img src="https://dpscdfoundation.org/wp-content/uploads/2026/02/Deana-Neely.jpg" alt="Deana Neely" loading="lazy">
+            </div>
+            <div class="polaroid-bottom">
+              <p class="polaroid-name">Deana Neely</p>
+              <p class="polaroid-school">Osborn</p>
+            </div>
+          </div>
+          <div class="profile-content">
+            <p class="profile-school-tag">Osborn High School Alum</p>
+            <h2 class="profile-name">Deana Neely</h2>
+            <p class="profile-role">Founder & CEO, Detroit Voltage</p>
+            <div class="profile-bio">
+              <p>Deana Neely is a licensed electrical contractor and the award-winning founder and CEO of Detroit Voltage, one of Michigan's fastest growing woman-owned electrical contracting firms. With more than a decade in construction and prior experience in Detroit's Buildings and Safety Engineering Department, she built a company grounded in quality, safety, and service.</p>
+              <p>As a Black woman leading in STEM and skilled trades, Deana represents the expanding career pathways available to Detroit students. Her work aligns with the future of high school redesign and workforce development. She shows students that entrepreneurship and technical mastery are powerful pathways forward.</p>
+            </div>
+            <p class="profile-signature">Her Blackprint is entrepreneurship and technical mastery as powerful pathways forward.</p>
+          </div>
+        </article>
+
+        <!-- Big Sean -->
+        <article id="profile-big-sean" class="profile reveal" aria-label="Big Sean profile">
+          <div class="polaroid" aria-hidden="true">
+            <div class="polaroid-img-wrap" style="width:172px;height:172px;">
+              <img src="https://dpscdfoundation.org/wp-content/uploads/2026/02/big-sean-1.png" alt="Big Sean" loading="lazy">
+            </div>
+            <div class="polaroid-bottom">
+              <p class="polaroid-name">Big Sean</p>
+              <p class="polaroid-school">Cass Tech</p>
+            </div>
+          </div>
+          <div class="profile-content">
+            <p class="profile-school-tag">Cass Technical High School Alum</p>
+            <h2 class="profile-name">Big Sean</h2>
+            <p class="profile-role">Global Recording Artist | Philanthropist</p>
+            <div class="profile-bio">
+              <p>Big Sean has risen from Detroit classrooms to international stages, becoming one of the most recognized voices in contemporary hip hop. With multiple platinum albums, Grammy nominations, and collaborations with industry icons, he has built a career defined by lyrical precision, resilience, and cultural influence.</p>
+              <p>Yet his impact extends beyond music. Through philanthropy and advocacy, he has consistently invested back into Detroit, supporting education initiatives and community development efforts. For DPSCD students, his journey affirms that talent nurtured in Detroit can resonate worldwide.</p>
+            </div>
+            <p class="profile-signature">His Blackprint is global excellence anchored in hometown loyalty.</p>
+          </div>
+        </article>
+
+        <!-- Sean Williams -->
+        <article id="profile-sean-williams" class="profile reveal" aria-label="Sean Williams profile">
+          <div class="polaroid" aria-hidden="true">
+            <div class="polaroid-img-wrap" style="width:172px;height:172px;">
+              <img src="https://dpscdfoundation.org/wp-content/uploads/2026/02/Sean-Williams.jpeg" alt="Sean Williams" loading="lazy">
+            </div>
+            <div class="polaroid-bottom">
+              <p class="polaroid-name">Sean Williams</p>
+              <p class="polaroid-school">Cass Tech</p>
+            </div>
+          </div>
+          <div class="profile-content">
+            <p class="profile-school-tag">Cass Technical High School Alum</p>
+            <h2 class="profile-name">Sean Williams</h2>
+            <p class="profile-role">CEO, Detroit Vs. Everybody</p>
+            <div class="profile-bio">
+              <p>Under Sean Williams' leadership, Detroit Vs. Everybody has grown into a nationally recognized brand that amplifies culture and civic pride. Originally founded by Tommey Walker, the brand has expanded into new lines that celebrate identity, including the DPSCD Vs. Everybody collaboration.</p>
+              <p>Through partnership with DPSCD, the brand has helped elevate student pride and alumni engagement, reinforcing that Detroit's identity is something to be celebrated.</p>
+            </div>
+            <p class="profile-signature">His Blackprint is cultural influence paired with community reinvestment.</p>
+          </div>
+        </article>
+
+        <!-- Jeremy Orr -->
+        <article id="profile-jeremy-orr" class="profile reveal" aria-label="Jeremy Orr profile">
+          <div class="polaroid" aria-hidden="true">
+            <div class="polaroid-img-wrap" style="width:172px;height:172px;">
+              <img src="https://dpscdfoundation.org/wp-content/uploads/2026/02/Jeremy-Orr.png" alt="Jeremy Orr" loading="lazy">
+            </div>
+            <div class="polaroid-bottom">
+              <p class="polaroid-name">Jeremy Orr</p>
+              <p class="polaroid-school">Henry Ford</p>
+            </div>
+          </div>
+          <div class="profile-content">
+            <p class="profile-school-tag">Henry Ford High School Alum</p>
+            <h2 class="profile-name">Jeremy Orr</h2>
+            <p class="profile-role">Environmental Attorney | Environmental Justice Advocate</p>
+            <div class="profile-bio">
+              <p>Jeremy Orr is an environmental attorney whose work centers on protecting communities and advancing environmental justice across Michigan. A graduate of Henry Ford High School, he has dedicated his legal expertise to addressing issues of public health, clean water access, and energy equity.</p>
+              <p>His advocacy has intersected with major environmental challenges, including work connected to the Flint water crisis and broader efforts to hold institutions accountable for environmental harm. For DPSCD students, his career highlights a powerful and often underrepresented pathway. Environmental law is not only viable — it is vital.</p>
+            </div>
+            <p class="profile-signature">His Blackprint is advocacy in action.</p>
+          </div>
+        </article>
+
+        <!-- Curtis Blackwell -->
+        <article id="profile-curtis-blackwell" class="profile reveal" aria-label="Curtis Blackwell profile">
+          <div class="polaroid" aria-hidden="true">
+            <div class="polaroid-img-wrap" style="width:172px;height:172px;">
+              <img src="https://dpscdfoundation.org/wp-content/uploads/2026/02/Curtis-Blackwell.jpg" alt="Curtis Blackwell" loading="lazy">
+            </div>
+            <div class="polaroid-bottom">
+              <p class="polaroid-name">Curtis Blackwell</p>
+              <p class="polaroid-school">MLK High School</p>
+            </div>
+          </div>
+          <div class="profile-content">
+            <p class="profile-school-tag">Martin Luther King Jr. High School Alum</p>
+            <h2 class="profile-name">Curtis Blackwell</h2>
+            <p class="profile-role">Founder, Sound Mind Sound Body</p>
+            <div class="profile-bio">
+              <p>Curtis Blackwell founded Sound Mind Sound Body to provide Detroit youth with exposure, mentorship, and pathways into collegiate athletics and leadership opportunities. Through camps, combines, and national partnerships, his organization has helped thousands of students gain scholarships and access to higher education.</p>
+              <p>His work bridges sports, discipline, and long-term achievement.</p>
+            </div>
+            <p class="profile-signature">His Blackprint is about unlocking doors at scale.</p>
+          </div>
+        </article>
+
+        <!-- Tarence Wheeler -->
+        <article id="profile-tarence-wheeler" class="profile reveal" aria-label="Tarence Wheeler profile">
+          <div class="polaroid" aria-hidden="true">
+            <div class="polaroid-img-wrap" style="width:172px;height:172px;">
+              <img src="https://dpscdfoundation.org/wp-content/uploads/2026/02/Tarence-Wheeler.jpg" alt="Tarence Wheeler" loading="lazy">
+            </div>
+            <div class="polaroid-bottom">
+              <p class="polaroid-name">Tarence Wheeler</p>
+              <p class="polaroid-school">Southwestern</p>
+            </div>
+          </div>
+          <div class="profile-content">
+            <p class="profile-school-tag">Southwestern High School Alum</p>
+            <h2 class="profile-name">Tarence Wheeler</h2>
+            <p class="profile-role">Executive Director of Alumni Affairs and Community Relations, DPSCD</p>
+            <div class="profile-bio">
+              <p>Tarence Wheeler's career reflects a full-circle journey rooted in Detroit. After building a professional path in sports and athletics, he transitioned into civic and educational leadership, bringing with him the discipline and network cultivated through years in competitive arenas.</p>
+              <p>Today, he leads Alumni Affairs and Community Relations for DPSCD, cultivating relationships that expand opportunity for students beyond the classroom. His work aligns influential alumni and community leaders with district priorities, translating relational capital into tangible support.</p>
+            </div>
+            <p class="profile-signature">His Blackprint is relational power, strategically deployed for the next generation.</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- DIVIDER -->
+    <div class="section-divider reveal" aria-hidden="true"><div class="divider-diamond"></div></div>
+
+    <!-- ─── SUPPORT ─── -->
+    <section id="support" aria-labelledby="support-heading">
+      <p class="section-label reveal">Get Involved</p>
+      <h2 id="support-heading" class="section-title reveal reveal-delay-1">Let's Rise Together</h2>
+      <div class="gold-rule reveal reveal-delay-2" aria-hidden="true"></div>
+      <blockquote class="support-quote reveal reveal-delay-3">
+        <strong>Legacy isn't just remembered. It's reinvested.</strong><br>
+        Walk with us as we continue building opportunity for Detroit students.
+      </blockquote>
+      <a href="https://DPSCDFoundation.org" class="cta-button reveal reveal-delay-4"
+        target="_blank" rel="noopener noreferrer"
+        aria-label="Donate today — Visit the DPSCD Foundation website (opens in new tab)">
+        Donate Today
+      </a>
+    </section>
+
+  </main>
+
+  <footer role="contentinfo">
+    <p>© DPSCD Foundation &nbsp;·&nbsp; The Blackprint</p>
+  </footer>
+
+  <script>
+    // ── Scroll Reveal ──
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => observer.observe(el));
+
+    // ── Blueprint parallax ──
+    const bg = document.querySelector('.blueprint-bg');
+    const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!noMotion) {
+      window.addEventListener('scroll', () => {
+        bg.style.transform = `translateY(${window.scrollY * 0.2}px)`;
+      }, { passive: true });
+    }
+
+    // ── Mobile nav ──
+    const toggle = document.querySelector('.nav-toggle');
+    const navList = document.getElementById('nav-list');
+    toggle.addEventListener('click', () => {
+      const isOpen = navList.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', isOpen);
+    });
+    navList.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navList.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navList.classList.contains('open')) {
+        navList.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.focus();
+      }
+    });
+
+    // ── Active nav on scroll ──
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('nav a');
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            link.removeAttribute('aria-current');
+            if (link.getAttribute('href') === '#' + entry.target.id) {
+              link.setAttribute('aria-current', 'true');
+            }
+          });
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    sections.forEach(s => sectionObserver.observe(s));
+  </script>
+
+</body>
+</html>
